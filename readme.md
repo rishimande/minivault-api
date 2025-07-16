@@ -17,7 +17,7 @@ A lightweight local REST API that accepts a text prompt and returns a generated 
 1. Clone the repository and navigate into it:
 
    ```bash
-   git clone <https://github.com/rishimande/minivault-api.git>
+   git clone https://github.com/rishimande/minivault-api.git
    cd minivault-api
    ```
 
@@ -75,10 +75,10 @@ POST /generate
 ### FastAPI vs. Flask
 I chose FastAPI for its speed and built-in data validation capabilities. FastAPI automatically generates interactive API documentation at /docs, which is useful for manual testing. The use of Pydantic models ensures that if the client JSON is missing required fields or contains incorrect types, the API will return a clear 422 error by default—enhancing robustness.
 
-While Flask could have been sufficient for a simple project, it would have required manually parsing JSON and implementing validation and error handling. FastAPI offered a cleaner, more structured solution with less boilerplate.
+While Flask could have been sufficient for a simple project, it would have required manually parsing JSON and implementing validation and error handling. I found FastAPI’s structure and validation made it much easier to build and debug quickly compared to Flask.
 
 ### Local LLM via Ollama
-Using Ollama’s REST API decouples the application from the specifics of the model implementation. This eliminates the need to manage model loading or inference in-process, which can be resource-intensive. The trade-off is a dependency on an external service (Ollama) being available. In a production setting, I might consider directly integrating the model using libraries like Hugging Face Transformers or managing the Ollama service via Docker or a process supervisor. For this assignment, running a local model satisfied the requirement to avoid cloud APIs.
+Using Ollama’s REST API lets the app treat the model like a black box, so I don’t have to worry about loading or running it myself. This eliminates the need to manage model loading or inference in-process, which can be resource-intensive. The trade-off is a dependency on an external service (Ollama) being available. In a production setting, I might consider directly integrating the model using libraries like Hugging Face Transformers or managing the Ollama service via Docker or a process supervisor. For this assignment, running a local model satisfied the requirement to avoid cloud APIs.
 
 ### Synchronous Call Inside Async Endpoint
 The FastAPI endpoint is asynchronous, but it calls the blocking requests.post function to interact with Ollama. This is a minor anti-pattern since it could block the event loop. Given the expected low traffic and interactive testing use case, I accepted this trade-off for simplicity. A more scalable approach would involve using httpx.AsyncClient or offloading the request to a background thread or task.
