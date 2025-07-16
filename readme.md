@@ -6,15 +6,6 @@
 
 A lightweight local REST API that accepts a text prompt and returns a generated response using a local LLM (via Ollama).
 
-## Project Structure
-
-minivault-api/
-├── app.py # FastAPI application code
-├── logs/
-│ └── log.jsonl # Log file (JSON Lines format)
-├── requirements.txt # Python dependencies
-└── README.md # Setup instructions and notes
-
 ## Features
 
 - POST /generate endpoint
@@ -26,7 +17,7 @@ minivault-api/
 1. Clone the repository and navigate into it:
 
    ```bash
-   git clone <your-repo-url>
+   git clone <https://github.com/rishimande/minivault-api.git>
    cd minivault-api
    ```
 
